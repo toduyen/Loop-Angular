@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "projects": {
+    "loop-ngfor": {
+      "projectType": "application",
+      "root": "apps/loop-ngfor",
+      "sourceRoot": "apps/loop-ngfor/src",
+      "prefix": "loop-ngfor",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/loop-ngfor",
+            "index": "apps/loop-ngfor/src/index.html",
+            "main": "apps/loop-ngfor/src/main.ts",
+            "polyfills": "apps/loop-ngfor/src/polyfills.ts",
+            "tsConfig": "apps/loop-ngfor/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/loop-ngfor/src/favicon.ico",
+              "apps/loop-ngfor/src/assets"
+            ],
+            "styles": ["apps/loop-ngfor/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/loop-ngfor/src/environments/environment.ts",
+                  "with": "apps/loop-ngfor/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "loop-ngfor:build:production"
+            },
+            "development": {
+              "browserTarget": "loop-ngfor:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "loop-ngfor:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/loop-ngfor/src/**/*.ts",
+              "apps/loop-ngfor/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/loop-ngfor"],
+          "options": {
+            "jestConfig": "apps/loop-ngfor/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "loop-ngfor-e2e": {
+      "root": "apps/loop-ngfor-e2e",
+      "sourceRoot": "apps/loop-ngfor-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/loop-ngfor-e2e/cypress.json",
+            "devServerTarget": "loop-ngfor:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "loop-ngfor:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/loop-ngfor-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["loop-ngfor"]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<p>comp-render works!</p>
+<div>
+  <ul>
+    <li *ngFor="let x of Data">{{x?.title}}</li>
+  </ul>
+</div>
+<ng-template ngFor [ngForOf]="Data" let-author let-idx="index" let-odd= "odd">
+    <ul>
+      <li>{{author.title}} <p>{{idx}}</p> <p>{{odd}}</p></li>
+    </ul>
+</ng-template>
